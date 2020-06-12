@@ -1686,6 +1686,8 @@ static NSDictionary* googlePlist;
         authCredential = [[FIRPhoneAuthProvider provider]
         credentialWithVerificationID:verificationId
                     verificationCode:code];
+    }else if(verificationId == nil && code != nil){
+        authCredential = [FIRFacebookAuthProvider credentialWithAccessToken:code];
     }else{
         NSString* errMsg = @"credential object must either specify the id key of an existing native auth credential or the verificationId/code keys must be specified for a phone number authentication";
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errMsg] callbackId:command.callbackId];
